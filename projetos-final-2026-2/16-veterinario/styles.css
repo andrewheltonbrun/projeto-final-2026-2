@@ -7,14 +7,14 @@
 
 /* Variáveis (Custom Properties) — facilitam manter o tema */
 :root {
-  --primary: #047857;
-  --accent: #a7f3d0;
+  --primary: #cbb05f;
+  --accent: #f7b98b;
   --bg: #f0fdf6;
-  --text: #1f2937;
+  --text: #cc7a2d;
   --muted: #6b7280;
-  --card: #ffffff;
+  --card: #f1db8d;
   --radius: 14px;
-  --shadow: 0 10px 30px rgba(0,0,0,.08);
+  --shadow: 0 10px 30px rgba(172, 135, 71, 0.552);
   --container: 1100px;
 }
 
@@ -165,7 +165,7 @@ form.contact select:focus {
   padding: 12px;
   border-radius: 10px;
   background: #ecfdf5;
-  color: #065f46;
+  color: #09dea2;
   text-align: center;
   display: none;
 }
