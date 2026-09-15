@@ -1,9 +1,15 @@
-# 🌍 Polyglot - Escola de Idiomas
+# 🌍 Atlas Linguagens
 
 **Categoria:** Educação
 **Tipo de projeto:** `landing_planos`
 
-Cursos, níveis e matrícula online.
+Bem-vindo ao Atlas Linguagem
+
+Descobrir o mundo começa com a chave de uma nova língua. No Atlas Linguagem, acreditamos que falar outro idioma vai muito além de decorar regras: é sobre conectar-se com novas culturas, expandir horizontes e transformar o seu futuro.
+
+Nossa escola combina metodologia dinâmica, professores apaixonados por ensinar e um ambiente feito para você destravar sua comunicação de verdade.
+
+Pronto para explorar o mundo? Dê o primeiro passo agora mesmo. Escolha o seu idioma favorito, faça sua inscrição de forma rápida e segura por aqui e comece a sua jornada rumo à fluência!
 
 ## 🎯 Conceitos abordados
 - Estrutura HTML semântica (`header`, `section`, `article`, `footer`)
