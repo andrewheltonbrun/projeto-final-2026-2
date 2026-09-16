@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Polyglot - Escola de Idiomas — Landing com planos/preços -->
+<!-- Atlas Linguagens — Landing com planos/preços -->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -16,33 +16,196 @@
       <ul id="menu">
         <li><a href="#inicio">Início</a></li>
         <li><a href="#planos">Planos</a></li>
-        <li><a href="#modalidades">Modalidades</a></li>
+        <li><a href="#modalidades">Níveis</a></li>
+        <li><a href="#teste-nivel">Teste de nível</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </div>
   </header>
 
   <section class="hero" id="inicio">
-    <h1>Atlas Linguanges</h1>
-    <p>Bem-vindo ao Atlas Linguagem
+    <div class="hero-bg" aria-hidden="true">
+      <span class="drift" style="--x:6%;  --delay:0s;  --dur:22s;">語</span>
+      <span class="drift" style="--x:20%; --delay:3s;  --dur:26s;">ñ</span>
+      <span class="drift" style="--x:36%; --delay:7s;  --dur:19s;">ç</span>
+      <span class="drift" style="--x:52%; --delay:1s;  --dur:24s;">の</span>
+      <span class="drift" style="--x:68%; --delay:5s;  --dur:20s;">é</span>
+      <span class="drift" style="--x:82%; --delay:9s;  --dur:23s;">ü</span>
+      <span class="drift" style="--x:14%; --delay:12s; --dur:21s;">я</span>
+      <span class="drift" style="--x:62%; --delay:14s; --dur:25s;">θ</span>
+    </div>
 
-Descobrir o mundo começa com a chave de uma nova língua. No Atlas Linguagem, acreditamos que falar outro idioma vai muito além de decorar regras: é sobre conectar-se com novas culturas, expandir horizontes e transformar o seu futuro.
+    <div class="hero-inner">
+      <p class="hero-kicker">Escola de idiomas</p>
+      <h1>Diga olá em <span id="heroWord" class="hero-word">Hello</span><span class="cursor" aria-hidden="true">|</span></h1>
+      <p class="hero-copy">Quatro idiomas, quatro níveis e um único objetivo: fazer você se comunicar de verdade, não só decorar regras de gramática.</p>
 
-Nossa escola combina metodologia dinâmica, professores apaixonados por ensinar e um ambiente feito para você destravar sua comunicação de verdade.
+      <div class="lang-picker" role="group" aria-label="Escolher idioma para experimentar">
+        <button type="button" class="lang-chip is-active" data-word="Hello" data-fact="A palavra 'hello' só virou saudação comum depois que o telefone foi inventado.">🇺🇸 <span>Inglês</span></button>
+        <button type="button" class="lang-chip" data-word="Bonjour" data-fact="Entrar numa loja na França sem dizer 'bonjour' antes é visto como falta de educação por lá.">🇫🇷 <span>Francês</span></button>
+        <button type="button" class="lang-chip" data-word="Hola" data-fact="'Hola' tem a mesma raiz árabe de 'oxalá': a expressão 'in sha'Allah', se Deus quiser.">🇪🇸 <span>Espanhol</span></button>
+        <button type="button" class="lang-chip" data-word="Ciao" data-fact="'Ciao' nasceu do veneziano 's-ciào vostro', uma forma antiga de dizer 'ao seu dispor'.">🇮🇹 <span>Italiano</span></button>
+        <button type="button" class="lang-chip" data-word="こんにちは" data-fact="Em japonês, 'konnichiwa' nasceu como começo de uma frase maior: falava-se sobre como estava o dia de hoje.">🇯🇵 <span>Japonês</span></button>
+      </div>
 
-Pronto para explorar o mundo? Dê o primeiro passo agora mesmo. Escolha o seu idioma favorito, faça sua inscrição de forma rápida e segura por aqui e comece a sua jornada rumo à fluência!</p>
-    <a href="#planos" class="btn">Ver planos</a>
+      <p class="hero-fact" id="heroFact">Clique em um idioma para descobrir uma curiosidade sobre o oi por lá.</p>
+
+      <div class="hero-actions">
+        <a href="#planos" class="btn">Ver planos</a>
+        <a href="#modalidades" class="btn ghost">Como funciona</a>
+      </div>
+      <a href="#teste-nivel" class="hero-quiz-link">Não sabe seu nível? Faça o teste rápido.</a>
+    </div>
   </section>
 
   <section id="modalidades">
     <div class="container">
-      <h2>Modalidades</h2>
-      <p class="subtitle">Variedade para todos os objetivos</p>
+      <h2>Níveis de ensino</h2>
+      <p class="subtitle">Não sabe por onde começar? O teste de nível ajuda a escolher</p>
       <div class="grid">
-        <article class="card"><div class="icon">🏋️</div><h3>Musculação</h3><p>Equipamentos modernos e acompanhamento profissional.</p></article>
-        <article class="card"><div class="icon">🤸</div><h3>Funcional</h3><p>Treinos dinâmicos para condicionamento total.</p></article>
-        <article class="card"><div class="icon">🚴</div><h3>Spinning</h3><p>Queime calorias ao ritmo da música.</p></article>
-        <article class="card"><div class="icon">🥋</div><h3>Lutas</h3><p>Defesa pessoal e disciplina.</p></article>
+        <article class="card" data-nivel="Básico">
+          <div class="icon">🗣️</div><h3>Básico</h3>
+          <div class="level-meter" aria-hidden="true"><span style="--fill:25%"></span></div>
+          <p>Aulas para quem está começando do zero.</p>
+        </article>
+        <article class="card" data-nivel="Intermediário">
+          <div class="icon">🌎</div><h3>Intermediário</h3>
+          <div class="level-meter" aria-hidden="true"><span style="--fill:50%"></span></div>
+          <p>Aulas para quem já tem uma base e quer ganhar ritmo.</p>
+        </article>
+        <article class="card" data-nivel="Avançado">
+          <div class="icon">🗺</div><h3>Avançado</h3>
+          <div class="level-meter" aria-hidden="true"><span style="--fill:75%"></span></div>
+          <p>Aulas para fluência e comunicação natural.</p>
+        </article>
+        <article class="card" data-nivel="Fluente">
+          <div class="icon">🗪</div><h3>Fluente</h3>
+          <div class="level-meter" aria-hidden="true"><span style="--fill:100%"></span></div>
+          <p>Curso completo para proficiência em língua estrangeira.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="teste-nivel">
+    <div class="container">
+      <h2>Teste de nível</h2>
+      <p class="subtitle">Responda 10 perguntas rápidas e descubra a turma ideal para você</p>
+
+      <p class="quiz-progresso" id="quizProgresso" aria-live="polite">0 de 10 respondidas</p>
+      <div class="quiz-progresso-barra" aria-hidden="true"><span id="quizProgressoFill" style="--fill:0%"></span></div>
+
+      <form id="formTeste" class="quiz" novalidate>
+
+        <div class="quiz-question" data-question="1">
+          <p class="quiz-enunciado">1. "____ name is Ana."</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q1" value="1" required> I</label>
+            <label><input type="radio" name="q1" value="2"> My</label>
+            <label><input type="radio" name="q1" value="3"> Mine</label>
+            <label><input type="radio" name="q1" value="4"> Myself</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="2">
+          <p class="quiz-enunciado">2. She ____ to school every day.</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q2" value="1" required> go</label>
+            <label><input type="radio" name="q2" value="2"> goes</label>
+            <label><input type="radio" name="q2" value="3"> going</label>
+            <label><input type="radio" name="q2" value="4"> gone</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="3">
+          <p class="quiz-enunciado">3. Escolha a frase correta:</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q3" value="1" required> He don't like coffee.</label>
+            <label><input type="radio" name="q3" value="2"> He doesn't likes coffee.</label>
+            <label><input type="radio" name="q3" value="3"> He doesn't like coffee.</label>
+            <label><input type="radio" name="q3" value="4"> He not like coffee.</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="4">
+          <p class="quiz-enunciado">4. Yesterday, I ____ a movie.</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q4" value="1" required> watch</label>
+            <label><input type="radio" name="q4" value="2"> watches</label>
+            <label><input type="radio" name="q4" value="3"> watched</label>
+            <label><input type="radio" name="q4" value="4"> have watched</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="5">
+          <p class="quiz-enunciado">5. Qual frase usa o "present perfect" corretamente?</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q5" value="1" required> I live here since 2015.</label>
+            <label><input type="radio" name="q5" value="2"> I have lived here since 2015.</label>
+            <label><input type="radio" name="q5" value="3"> I lived here since 2015.</label>
+            <label><input type="radio" name="q5" value="4"> I am living here since 2015.</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="6">
+          <p class="quiz-enunciado">6. If I ____ more time, I would travel more.</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q6" value="1" required> have</label>
+            <label><input type="radio" name="q6" value="2"> had</label>
+            <label><input type="radio" name="q6" value="3"> has</label>
+            <label><input type="radio" name="q6" value="4"> will have</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="7">
+          <p class="quiz-enunciado">7. Qual é o sinônimo mais próximo de "meticulous"?</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q7" value="1" required> careless</label>
+            <label><input type="radio" name="q7" value="2"> quick</label>
+            <label><input type="radio" name="q7" value="3"> careful and detailed</label>
+            <label><input type="radio" name="q7" value="4"> lazy</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="8">
+          <p class="quiz-enunciado">8. Escolha a construção correta com "wish":</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q8" value="1" required> I wish I am taller.</label>
+            <label><input type="radio" name="q8" value="2"> I wish I was taller.</label>
+            <label><input type="radio" name="q8" value="3"> I wish I were taller.</label>
+            <label><input type="radio" name="q8" value="4"> I wish I will be taller.</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="9">
+          <p class="quiz-enunciado">9. By the time she arrived, the meeting ____ already ____.</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q9" value="1" required> has / started</label>
+            <label><input type="radio" name="q9" value="2"> had / started</label>
+            <label><input type="radio" name="q9" value="3"> have / start</label>
+            <label><input type="radio" name="q9" value="4"> was / starting</label>
+          </div>
+        </div>
+
+        <div class="quiz-question" data-question="10">
+          <p class="quiz-enunciado">10. Você consegue assistir a um filme em inglês sem legenda e entender quase tudo?</p>
+          <div class="quiz-opcoes">
+            <label><input type="radio" name="q10" value="1" required> Não, preciso de legenda em português.</label>
+            <label><input type="radio" name="q10" value="2"> Entendo partes, com legenda em inglês.</label>
+            <label><input type="radio" name="q10" value="3"> Entendo a maior parte sem legenda.</label>
+            <label><input type="radio" name="q10" value="4"> Sim, entendo tudo sem esforço.</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn primary">Ver meu nível</button>
+        <div class="quiz-erro" id="quizErro">Por favor, responda todas as perguntas antes de continuar.</div>
+      </form>
+
+      <div class="quiz-resultado" id="quizResultado" aria-live="polite">
+        <h3 id="quizNivelTitulo"></h3>
+        <p id="quizNivelDescricao"></p>
+        <a href="#planos" class="btn primary" id="quizLinkPlano">Ver turma recomendada</a>
+        <button class="btn" id="quizRefazer" type="button">Refazer teste</button>
       </div>
     </div>
   </section>
@@ -52,9 +215,10 @@ Pronto para explorar o mundo? Dê o primeiro passo agora mesmo. Escolha o seu id
       <h2>Planos</h2>
       <p class="subtitle">Escolha o ideal para você</p>
       <div class="grid">
-        <article class="card"><h3>Mensal</h3><p style="font-size:2rem;color:var(--primary);font-weight:800;">R$ 99.00</p><p>Acesso à musculação e aulas básicas.</p><button class="btn primary" onclick="escolherPlano('Mensal')">Assinar</button></article>
-        <article class="card"><h3>Trimestral</h3><p style="font-size:2rem;color:var(--primary);font-weight:800;">R$ 450.00</p><p>Todas as modalidades + avaliação física.</p><button class="btn primary" onclick="escolherPlano('Trimestral')">Assinar</button></article>
-        <article class="card"><h3>Anual</h3><p style="font-size:2rem;color:var(--primary);font-weight:800;">R$ 950.00</p><p>Acesso total + nutricionista incluso.</p><button class="btn primary" onclick="escolherPlano('Anual')">Assinar</button></article>
+        <article class="card" data-plano="Básico"><h3>Básico</h3><p style="font-size:2rem;color:var(--primary);font-weight:800;">R$ 149,00 </p><p>Ideal para quem está começando do zero.</p><button class="btn primary" onclick="escolherPlano('Básico')">Assinar</button></article>
+        <article class="card" data-plano="Intermediário"><h3>Intermediário</h3><p style="font-size:2rem;color:var(--primary);font-weight:800;">R$ 219,00</p><p>Para quem já entende o básico e quer ganhar ritmo, vocabulário e confiança.</p><button class="btn primary" onclick="escolherPlano('Intermediário')">Assinar</button></article>
+        <article class="card" data-plano="Avançado"><h3>Avançado</h3><p style="font-size:2rem;color:var(--primary);font-weight:800;">R$ 279,00</p><p>Aprofunde seus conhecimentos, debata temas complexos e refine sua escrita e pronúncia.</p><button class="btn primary" onclick="escolherPlano('Avançado')">Assinar</button></article>
+        <article class="card" data-plano="Fluente"><h3>Fluente</h3><p style="font-size:2rem;color:var(--primary);font-weight:800;">R$ 349,00</p><p>Alcance a total liberdade de comunicação, pensando e se expressando com naturalidade de um nativo.</p><button class="btn primary" onclick="escolherPlano('Fluente')">Assinar</button></article>
       </div>
     </div>
   </section>
@@ -76,5 +240,8 @@ Pronto para explorar o mundo? Dê o primeiro passo agora mesmo. Escolha o seu id
     <p>© <span id="ano"></span> Atlas Linguagens</p>
   </footer>
   <script src="script.js"></script>
+
+  
 </body>
 </html>
+ 
