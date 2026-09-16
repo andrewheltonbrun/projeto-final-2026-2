@@ -1,11 +1,14 @@
+// =========================================================
+// Sportlabel - Loja de Roupas (projeto de estudo/portfólio)
+// Catálogo multi-categoria com sidebar, seleção de tamanho,
+// parcelamento, estoque dinâmico e carrinho de compras.
+// =========================================================
 
 // ========= Comum: menu mobile, ano no rodapé =========
 document.addEventListener('DOMContentLoaded', () => {
-  // Preenche o ano automaticamente no footer
   const ano = document.getElementById('ano');
   if (ano) ano.textContent = new Date().getFullYear();
 
-  // Menu mobile (toggle)
   const toggle = document.querySelector('.menu-toggle');
   const menu = document.getElementById('menu');
   if (toggle && menu) {
@@ -14,22 +17,32 @@ document.addEventListener('DOMContentLoaded', () => {
       a.addEventListener('click', () => menu.classList.remove('open'))
     );
   }
+
+  // Sidebar de categorias em telas pequenas (some/aparece)
+  const catToggle = document.getElementById('catToggle');
+  const sidebar = document.getElementById('sidebar');
+  if (catToggle && sidebar) {
+    catToggle.addEventListener('click', () => {
+      const aberto = sidebar.classList.toggle('aberto');
+      catToggle.setAttribute('aria-expanded', aberto);
+    });
+    sidebar.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => sidebar.classList.remove('aberto'))
+    );
+  }
 });
 
-// ========= Validação simples do formulário =========
+// ========= Validação simples do formulário de contato =========
 const form = document.getElementById('formContato');
 if (form) {
   form.addEventListener('submit', (e) => {
-    e.preventDefault(); // impede o envio padrão
+    e.preventDefault();
     const feedback = document.getElementById('feedback');
     feedback.style.display = 'block';
 
-    // Pega valores dos campos
     const nome = form.querySelector('#nome')?.value.trim();
     const email = form.querySelector('#email')?.value.trim();
     const mensagem = form.querySelector('#mensagem')?.value.trim();
-
-    // Regex básico para validar e-mail
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || '');
 
     if (!nome || !emailOk || !mensagem) {
@@ -39,77 +52,182 @@ if (form) {
     }
 
     feedback.classList.remove('erro');
-    feedback.textContent = `Obrigado, ${nome}! Recebemos sua mensagem e retornaremos em breve.`;
+    feedback.textContent = `Obrigado, ${nome}! Recebemos sua mensagem (projeto de estudo, sem envio real).`;
     form.reset();
   });
 }
 
-// ========= Catálogo + Carrinho =========
-const listaProdutos = document.getElementById('produtos-lista');
-const drawer = document.getElementById('drawer');
-const carrinhoItens = document.getElementById('carrinho-itens');
-const qtdCarrinho = document.getElementById('qtd-carrinho');
-const totalEl = document.getElementById('total');
+// ========= Ícones em SVG (fallback quando não há foto real) =========
+const ICONS = {
+  camiseta: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10 L8 18 L14 28 L20 24 V54 H44 V24 L50 28 L56 18 L44 10 C44 15 39 18 32 18 C25 18 20 15 20 10 Z"/></svg>`,
+  jaqueta: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9 L10 16 L16 27 L22 23 V55 H26 V38 H38 V55 H42 V23 L48 27 L54 16 L42 9 C42 14 38 17 32 17 C26 17 22 14 22 9 Z"/><line x1="32" y1="17" x2="32" y2="55"/></svg>`,
+  calca: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8 H46 L48 30 L52 56 H40 L34 30 L30 56 H18 L22 30 Z"/><line x1="19.5" y1="16" x2="44.5" y2="16"/></svg>`,
+  bone: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 34 C10 20 20 12 32 12 C44 12 54 20 54 34 Z"/><path d="M10 34 C10 34 4 36 4 40 C4 42 8 42 12 41"/><circle cx="32" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>`,
+  tenis: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 44 C10 40 14 38 18 38 C22 38 22 34 27 32 C33 29 38 22 44 22 C48 22 48 27 52 29 C56 31 58 34 58 40 C58 44 55 46 50 46 H8 C6 46 6 45 6 44 Z"/><line x1="24" y1="34" x2="30" y2="40"/><line x1="30" y1="32" x2="35" y2="38"/><line x1="36" y1="28" x2="41" y2="34"/></svg>`,
+  mochila: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 24 C20 16 26 12 32 12 C38 12 44 16 44 24 V52 C44 55 41 57 38 57 H26 C23 57 20 55 20 52 Z"/><path d="M25 24 V16 C25 13 28 11 32 11 C36 11 39 13 39 16 V24"/><rect x="26" y="34" width="12" height="10" rx="2"/></svg>`,
+  padrao: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="10" width="44" height="44" rx="4"/><circle cx="24" cy="26" r="4"/><path d="M12 48 L26 34 L34 42 L44 30 L54 44"/></svg>`
+};
 
-// Estado do carrinho: { idProduto: quantidade }
-let carrinho = {};
+function imagemProduto(p) {
+  if (p.imagem) {
+    return `<img src="${p.imagem}" alt="${p.nome}" loading="lazy" />`;
+  }
+  return ICONS[p.icone] || ICONS.padrao;
+}
 
-// Formata número como moeda BRL
 function moeda(v) {
   return window.MOEDA + ' ' + v.toFixed(2).replace('.', ',');
 }
 
-// Renderiza os produtos disponíveis
-function renderizarProdutos() {
-  listaProdutos.innerHTML = window.PRODUTOS.map(p => `
-    <article class="produto">
-      <div class="img">${p.emoji}</div>
-      <h3>${p.nome}</h3>
-      <p>${p.desc}</p>
-      <div class="preco">${moeda(p.preco)}</div>
-      <button onclick="adicionar(${p.id})">${window.CTA}</button>
-    </article>
-  `).join('');
+// ========= Estado =========
+// Estoque disponível "ao vivo" (diminui ao comprar, volta ao remover do carrinho)
+const estoqueAtual = {};
+window.PRODUTOS.forEach(p => { estoqueAtual[p.id] = p.estoque; });
+
+// Tamanho selecionado por produto (id -> tamanho)
+const tamanhosSelecionados = {};
+
+// Carrinho: chave "id::tamanho" -> { id, tamanho, qty }
+let carrinho = {};
+
+// ========= Elementos =========
+const listaCategoriasEl = document.getElementById('listaCategorias');
+const catalogoListaEl = document.getElementById('catalogo-lista');
+const drawer = document.getElementById('drawer');
+const carrinhoItensEl = document.getElementById('carrinho-itens');
+const qtdCarrinhoEl = document.getElementById('qtd-carrinho');
+const totalEl = document.getElementById('total');
+
+// ========= Sidebar de categorias =========
+function renderizarSidebar() {
+  listaCategoriasEl.innerHTML = window.CATEGORIAS.map(cat => {
+    const qtd = window.PRODUTOS.filter(p => p.categoria === cat.chave).length;
+    return `<li><a href="#cat-${cat.chave}" data-cat="${cat.chave}">${cat.rotulo}<span class="contagem">${qtd}</span></a></li>`;
+  }).join('');
 }
 
-// Adiciona produto ao carrinho
+// ========= Catálogo agrupado por categoria =========
+function renderizarProdutoCard(p) {
+  const estoque = estoqueAtual[p.id];
+  const esgotado = estoque <= 0;
+  const desconto = p.precoOriginal ? Math.round((1 - p.preco / p.precoOriginal) * 100) : 0;
+  const parcela = p.preco / 12;
+  const tamanhoSelecionado = tamanhosSelecionados[p.id] || null;
+  const precisaTamanho = p.tamanhos && p.tamanhos.length > 0;
+  const podeComprar = !esgotado && (!precisaTamanho || tamanhoSelecionado);
+
+  return `
+    <article class="produto" data-id="${p.id}">
+      <div class="img-wrap">
+        ${desconto > 0 ? `<span class="badge-desconto">-${desconto}% OFF</span>` : ''}
+        <span class="badge-frete">FRETE GRÁTIS</span>
+        ${imagemProduto(p)}
+      </div>
+      <div class="produto-corpo">
+        <h3>${p.nome}</h3>
+        <div class="preco-linha">
+          ${p.precoOriginal ? `<span class="preco-original">${moeda(p.precoOriginal)}</span>` : ''}
+          <span class="preco-atual">${moeda(p.preco)}</span>
+        </div>
+        <div class="parcelamento">ou 12x de ${moeda(parcela)}</div>
+        ${precisaTamanho ? `
+          <div class="tamanhos">
+            ${p.tamanhos.map(t => `<button type="button" class="${t === tamanhoSelecionado ? 'selecionado' : ''}" onclick="selecionarTamanho(${p.id}, '${t}')">${t}</button>`).join('')}
+          </div>
+          <div class="aviso-tamanho" id="aviso-${p.id}"></div>
+        ` : ''}
+        <div class="estoque-linha">
+          <span class="${esgotado ? 'esgotado' : 'disponivel'}">${esgotado ? 'Esgotado' : estoque + ' em estoque'}</span>
+        </div>
+        <button type="button" class="comprar" ${!podeComprar ? 'disabled' : ''} onclick="adicionar(${p.id})">${esgotado ? 'Esgotado' : window.CTA}</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderizarCatalogo() {
+  catalogoListaEl.innerHTML = window.CATEGORIAS.map(cat => {
+    const produtosCat = window.PRODUTOS.filter(p => p.categoria === cat.chave);
+    if (produtosCat.length === 0) return '';
+    return `
+      <section class="categoria-secao" id="cat-${cat.chave}">
+        <div class="categoria-cabecalho">
+          <h2>${cat.rotulo}</h2>
+          <span class="qtd">${produtosCat.length} produto${produtosCat.length > 1 ? 's' : ''}</span>
+        </div>
+        <div class="produtos">
+          ${produtosCat.map(renderizarProdutoCard).join('')}
+        </div>
+      </section>
+    `;
+  }).join('');
+}
+
+// Seleciona o tamanho de um produto (chip)
+function selecionarTamanho(id, tamanho) {
+  tamanhosSelecionados[id] = tamanho;
+  renderizarCatalogo();
+}
+
+// Adiciona ao carrinho, exige tamanho quando aplicável e respeita o estoque
 function adicionar(id) {
-  carrinho[id] = (carrinho[id] || 0) + 1;
+  const p = window.PRODUTOS.find(x => x.id === id);
+  if (!p) return;
+  const precisaTamanho = p.tamanhos && p.tamanhos.length > 0;
+
+  if (precisaTamanho && !tamanhosSelecionados[id]) {
+    const aviso = document.getElementById('aviso-' + id);
+    if (aviso) aviso.textContent = 'Selecione um tamanho';
+    return;
+  }
+  if (estoqueAtual[id] <= 0) return;
+
+  estoqueAtual[id] -= 1;
+  const tamanho = tamanhosSelecionados[id] || null;
+  const key = id + '::' + (tamanho || '-');
+  if (!carrinho[key]) carrinho[key] = { id, tamanho, qty: 0 };
+  carrinho[key].qty += 1;
+
+  renderizarCatalogo();
   atualizarCarrinho();
 }
 
-// Remove uma unidade do produto
-function remover(id) {
-  if (!carrinho[id]) return;
-  carrinho[id]--;
-  if (carrinho[id] <= 0) delete carrinho[id];
+// Remove uma linha inteira do carrinho e devolve o estoque
+function remover(key) {
+  const item = carrinho[key];
+  if (!item) return;
+  estoqueAtual[item.id] += item.qty;
+  delete carrinho[key];
+  renderizarCatalogo();
   atualizarCarrinho();
 }
 
 // Atualiza badge do carrinho e total
 function atualizarCarrinho() {
-  const ids = Object.keys(carrinho);
-  const qtd = ids.reduce((s, id) => s + carrinho[id], 0);
-  qtdCarrinho.textContent = qtd;
+  const chaves = Object.keys(carrinho);
+  const qtdTotal = chaves.reduce((s, k) => s + carrinho[k].qty, 0);
+  qtdCarrinhoEl.textContent = qtdTotal;
 
-  if (ids.length === 0) {
-    carrinhoItens.innerHTML = '<p style="color:#6b7280;text-align:center;padding:20px;">Carrinho vazio</p>';
+  if (chaves.length === 0) {
+    carrinhoItensEl.innerHTML = '<p style="color:#6b7280;text-align:center;padding:20px;">Carrinho vazio</p>';
     totalEl.textContent = moeda(0);
     return;
   }
 
   let total = 0;
-  carrinhoItens.innerHTML = ids.map(id => {
-    const p = window.PRODUTOS.find(x => x.id == id);
-    const sub = p.preco * carrinho[id];
+  carrinhoItensEl.innerHTML = chaves.map(k => {
+    const item = carrinho[k];
+    const p = window.PRODUTOS.find(x => x.id === item.id);
+    const sub = p.preco * item.qty;
     total += sub;
     return `
       <div class="item-c">
-        <div>
-          <strong>${p.emoji} ${p.nome}</strong><br/>
-          <small>${carrinho[id]} × ${moeda(p.preco)} = ${moeda(sub)}</small>
+        <div class="mini-img">${imagemProduto(p)}</div>
+        <div class="info">
+          <strong>${p.nome}</strong>${item.tamanho ? ' — Tam. ' + item.tamanho : ''}<br/>
+          <small>${item.qty} × ${moeda(p.preco)} = ${moeda(sub)}</small>
         </div>
-        <button class="remover" onclick="remover(${p.id})" title="Remover">✕</button>
+        <button class="remover" onclick="remover('${k}')" title="Remover">✕</button>
       </div>
     `;
   }).join('');
@@ -125,11 +243,31 @@ function finalizarPedido() {
     alert('Seu carrinho está vazio.');
     return;
   }
-  alert('Pedido finalizado com sucesso! Entraremos em contato para confirmação.');
+  alert('Pedido "finalizado" com sucesso! (projeto de estudo — nenhuma compra real foi processada)');
   carrinho = {};
   atualizarCarrinho();
   fecharCarrinho();
 }
 
-renderizarProdutos();
+// ========= Destaque da categoria ativa na sidebar ao rolar =========
+function ativarObservadorDeSecoes() {
+  const secoes = document.querySelectorAll('.categoria-secao');
+  const links = () => listaCategoriasEl.querySelectorAll('a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        links().forEach(a => a.classList.toggle('ativo', a.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  secoes.forEach(sec => observer.observe(sec));
+}
+
+// ========= Inicialização =========
+renderizarSidebar();
+renderizarCatalogo();
 atualizarCarrinho();
+ativarObservadorDeSecoes();

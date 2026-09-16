@@ -1,74 +1,58 @@
 <!DOCTYPE html>
-<!-- ZARÁ Boutique - Loja de Roupas — Catálogo com carrinho (JavaScript) -->
+<!-- Sportlabel - Loja de Roupas — projeto de estudo/portfólio -->
+<!-- Estrutura (sidebar de categorias, tamanhos, parcelamento, estoque) inspirada
+     na organização de catálogos de e-commerce de streetwear. Os produtos e a marca
+     "Sportlabel" são fictícios; nomes de marcas de terceiros aparecem apenas como
+     exemplo de conteúdo de catálogo, sem qualquer vínculo comercial real. -->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZARÁ Boutique - Loja de Roupas</title>
-  <meta name="description" content="Catálogo com carrinho de compras (JS)." />
+  <title>Sportlabel - Loja de Roupas (projeto de estudo)</title>
+  <meta name="description" content="Catálogo fictício com sidebar de categorias, tamanhos, parcelamento e carrinho de compras — projeto de estudo/portfólio." />
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    .produtos { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
-    .produto {
-      background:#fff; padding:20px; border-radius:var(--radius);
-      box-shadow:var(--shadow); text-align:center;
-    }
-    .produto .img { font-size:3.5rem; margin-bottom:10px; }
-    .produto .preco { font-weight:800; color:var(--primary); font-size:1.2rem; margin:8px 0; }
-    .produto button {
-      background:var(--primary); color:#fff; border:0; padding:10px 16px;
-      border-radius:8px; cursor:pointer; font-weight:600;
-    }
-    .produto button:hover { opacity:.9; }
-
-    /* Carrinho lateral (drawer) */
-    .carrinho-icone {
-      position:fixed; bottom:20px; right:20px;
-      background:var(--primary); color:#fff; padding:14px 18px;
-      border-radius:999px; cursor:pointer; font-weight:700;
-      box-shadow:var(--shadow); z-index:60; border:0;
-    }
-    .drawer {
-      position:fixed; top:0; right:-380px; width:360px; max-width:90vw; height:100vh;
-      background:#fff; box-shadow:-4px 0 20px rgba(0,0,0,.15);
-      transition: right .3s ease; z-index:70; display:flex; flex-direction:column;
-    }
-    .drawer.aberto { right:0; }
-    .drawer header { background:var(--primary); color:#fff; padding:18px; display:flex; justify-content:space-between; align-items:center; }
-    .drawer .itens { flex:1; overflow-y:auto; padding:16px; }
-    .drawer .item-c { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee; }
-    .drawer footer { padding:18px; border-top:1px solid #eee; background:#fff; color:#111; }
-    .remover { background:transparent; border:0; color:#dc2626; cursor:pointer; font-size:1.1rem; }
-  </style>
 </head>
 <body>
+
+  <div class="aviso-estudo">
+    <strong>Projeto de estudo/portfólio</strong> — catálogo e loja fictícios, sem vínculo comercial real. Nenhum produto é vendido de verdade aqui.
+  </div>
+
   <header class="site-header">
     <div class="nav">
-      <div class="logo">👗 ZARÁ Boutique - Loja de Roupas</div>
-      <button class="menu-toggle" aria-label="Menu">☰</button>
+      <div class="logo">🏀 Sportlabel</div>
+      <button class="cat-toggle" id="catToggle" aria-label="Abrir categorias" aria-expanded="false">☰ Categorias</button>
       <ul id="menu">
         <li><a href="#inicio">Início</a></li>
-        <li><a href="#produtos">Coleção</a></li>
+        <li><a href="#catalogo">Coleção</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
+      <button class="menu-toggle" aria-label="Menu">☰</button>
     </div>
   </header>
 
   <section class="hero" id="inicio">
-    <h1>ZARÁ Boutique - Loja de Roupas</h1>
-    <p>Catálogo com carrinho de compras (JS).</p>
-    <a href="#produtos" class="btn">Ver coleção</a>
+    <h1>Sportlabel - Loja de Roupas</h1>
+    <p>Catálogo de estudo com sidebar de categorias, seleção de tamanho, parcelamento e carrinho de compras.</p>
+    <a href="#catalogo" class="btn">Ver coleção</a>
   </section>
 
-  <section id="produtos">
-    <div class="container">
-      <h2>Coleção</h2>
-      <p class="subtitle">Adicione ao carrinho e finalize o pedido</p>
-      <div class="produtos" id="produtos-lista"></div>
-    </div>
-  </section>
+  <div class="faixa-beneficios">
+    <span>🚚 Frete grátis em todo o Brasil</span>
+    <span>💳 Em até 12x sem juros</span>
+    <span>🔁 Troca em 7 dias</span>
+  </div>
 
-  <section id="contato" style="background:#fff;">
+  <div class="loja" id="catalogo">
+    <aside class="sidebar" id="sidebar">
+      <h2>Categorias</h2>
+      <ul id="listaCategorias"><!-- gerado via JS --></ul>
+    </aside>
+
+    <main id="catalogo-lista"><!-- seções por categoria geradas via JS --></main>
+  </div>
+
+  <section id="contato">
     <div class="container">
       <h2>Contato</h2>
       <form class="contact" id="formContato" novalidate>
@@ -99,12 +83,51 @@
     </footer>
   </aside>
 
-  <footer><p>© <span id="ano"></span> ZARÁ Boutique - Loja de Roupas</p></footer>
+  <footer class="rodape">
+    <p class="disclaimer">
+      Este site é um projeto de estudo/portfólio de desenvolvimento front-end. O catálogo, os preços,
+      o estoque e a loja "Sportlabel" são fictícios. Nomes de marcas de terceiros citados nos produtos
+      servem apenas como conteúdo de exemplo e não representam venda real nem vínculo comercial com
+      essas marcas.
+    </p>
+    <p>© <span id="ano"></span> Sportlabel — projeto de estudo. Todos os direitos reservados.</p>
+  </footer>
 
   <script>
-    window.PRODUTOS = [{"id": 1, "nome": "Camiseta Básica", "desc": "100% algodão", "preco": 59.9, "emoji": "👕"}, {"id": 2, "nome": "Vestido Verão", "desc": "Tecido leve", "preco": 129.9, "emoji": "👗"}, {"id": 3, "nome": "Calça Jeans", "desc": "Skinny clássica", "preco": 159.9, "emoji": "👖"}, {"id": 4, "nome": "Jaqueta", "desc": "Couro sintético", "preco": 249.9, "emoji": "🧥"}, {"id": 5, "nome": "Tênis Branco", "desc": "Casual unissex", "preco": 189.9, "emoji": "👟"}, {"id": 6, "nome": "Bolsa", "desc": "Couro ecológico", "preco": 139.9, "emoji": "👜"}];
+    // ===== Categorias exibidas na sidebar e usadas para agrupar o catálogo =====
+    window.CATEGORIAS = [
+      { chave: "camisetas", rotulo: "Camisetas" },
+      { chave: "calcas",    rotulo: "Calças/Shorts" },
+      { chave: "moletons",  rotulo: "Moletons/Jaquetas" },
+      { chave: "tenis",     rotulo: "Tênis/Chinelos" },
+      { chave: "bones",     rotulo: "Bonés" },
+      { chave: "acessorios",rotulo: "Acessórios" }
+    ];
+
+    // Cada produto tem "categoria" (agrupamento/sidebar), "icone" (imagem SVG de
+    // fallback quando não há foto real) e "imagem" (foto real, opcional). Para usar
+    // uma foto de verdade, preencha "imagem" com o caminho do arquivo.
+    window.PRODUTOS = [
+      { id: 1, nome: "CAMISETA NIKE JORDAN BREAK ESSENTIALS MASCULINA - PRETA", desc: "Streetwear", preco: 129.90, categoria: "camisetas", icone: "camiseta", imagem: "imagens/camiseta-jordan.jpg", tamanhos: ["P","M","G","GG"], estoque: 5 },
+      { id: 7, nome: "CAMISETA NIKE DRI-FIT SPORT - BRANCA", desc: "Tecido respirável", preco: 155.00, precoOriginal: 179.90, categoria: "camisetas", icone: "camiseta", imagem: "", tamanhos: ["M","G"], estoque: 3 },
+
+      { id: 3, nome: "CALÇA JOGGER NIKE MASCULINA", desc: "Standard Fit, Algodão", preco: 259.90, categoria: "calcas", icone: "calca", imagem: "imagens/calca-jogger-nike.jpg", tamanhos: ["38","40","42","44"], estoque: 4 },
+      { id: 8, nome: "BERMUDA JORDAN DIAMOND - AZUL", desc: "Tecido leve para o dia a dia", preco: 269.99, precoOriginal: 320.00, categoria: "calcas", icone: "calca", imagem: "", tamanhos: ["38","40","42"], estoque: 2 },
+
+      { id: 2, nome: "BLUSÃO NIKE JORDAN BROOKLYN FLEECE PULLOVER", desc: "Tecido de frio", preco: 399.90, categoria: "moletons", icone: "jaqueta", imagem: "imagens/blusao-jordan-fleece.jpg", tamanhos: ["P","M","G"], estoque: 2 },
+      { id: 9, nome: "MOLETOM NIKE CLUB - CINZA", desc: "Forro macio", preco: 280.00, categoria: "moletons", icone: "jaqueta", imagem: "", tamanhos: ["M","G"], estoque: 1 },
+
+       { id: 10, nome: "TENIS AIR JORDAN 1 LOW - BLACK SILVER", desc: "Confortavel e Estiloso", preco: 1044.90, categoria: "tenis", icone: "tenis", imagem: "", tamanhos: ["38","39","40","41","42"], estoque: 5 },
+      { id: 11, nome: "CHINELO NIKE VICTORY ONE SLIDE - PRETO", desc: "Confortável e leve", preco: 99.90, categoria: "tenis", icone: "tenis", imagem: "", tamanhos: ["38","39","40","41","42"], estoque: 5 },
+
+      { id: 4, nome: "BONÉ NIKE COURT AEROBILL RAFA NADAL - AZUL MARINHO", desc: "Modelo Heritage86 Poliéster", preco: 249.90, categoria: "bones", icone: "bone", imagem: "imagens/bone-nike-rafa.jpg", tamanhos: [], estoque: 1 },
+      { id: 12, nome: "BONÉ NIKE AIR JORDAN - PRETO", desc: "Aba curva ajustável", preco: 105.00, precoOriginal: 180.00, categoria: "bones", icone: "bone", imagem: "", tamanhos: [], estoque: 4 },
+
+      { id: 6, nome: "MOCHILA NIKE ESSENTIALS HBR", desc: "", preco: 314.90, categoria: "acessorios", icone: "mochila", imagem: "imagens/mochila-nike.jpg", tamanhos: [], estoque: 2 },
+      { id: 13, nome: "MEIA NIKE EVERYDAY - KIT 3 PARES", desc: "Cano médio, branca", preco: 49.90, categoria: "acessorios", icone: "padrao", imagem: "", tamanhos: [], estoque: 8 }
+    ];
     window.MOEDA = "R$";
-    window.CTA = "Adicionar";
+    window.CTA = "Comprar";
   </script>
   <script src="script.js"></script>
 </body>
