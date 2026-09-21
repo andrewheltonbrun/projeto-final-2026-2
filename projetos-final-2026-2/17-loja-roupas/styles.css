@@ -7,12 +7,12 @@
 
 :root {
   --primary: #18181b;
-  --accent: #f43f5e;
+  --accent: #8a0017;
   --ok: #16a34a;
-  --bg: #fafaf9;
+  --bg: #241e89;
   --text: #1f2937;
   --muted: #6b7280;
-  --card: #ffffff;
+  --card: #00089a;
   --radius: 14px;
   --shadow: 0 10px 30px rgba(0,0,0,.08);
   --container: 1280px;
@@ -204,6 +204,22 @@ header.site-header {
 .produto .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .produto .img-wrap svg { width: 60%; height: 60%; object-fit: contain; color: var(--primary); margin: 20% auto; display: block; }
 
+/* ---------- 2 FOTOS POR PRODUTO (frente / costas) ---------- */
+.produto .img-wrap.duas-fotos { cursor: pointer; height: 260px; background: #fff; }
+.produto .img-wrap .foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: opacity .35s ease;
+}
+.produto .img-wrap .foto-costas { opacity: 0; }
+.produto .img-wrap.duas-fotos:hover .foto-costas,
+.produto .img-wrap.duas-fotos.verso .foto-costas { opacity: 1; }
+
+/* selos ficam por cima das fotos */
 .badge-desconto {
   position: absolute;
   top: 10px;
@@ -214,6 +230,7 @@ header.site-header {
   font-weight: 800;
   padding: 4px 8px;
   border-radius: 6px;
+  z-index: 2;
 }
 .badge-frete {
   position: absolute;
@@ -226,6 +243,7 @@ header.site-header {
   padding: 4px 8px;
   border-radius: 6px;
   letter-spacing: .03em;
+  z-index: 2;
 }
 
 .produto-corpo { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
@@ -341,9 +359,9 @@ form.contact textarea:focus {
 .drawer header { background: var(--primary); color: #fff; padding: 18px; display: flex; justify-content: space-between; align-items: center; }
 .drawer .itens { flex: 1; overflow-y: auto; padding: 16px; }
 .drawer .item-c { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
-.drawer .item-c .mini-img { width: 44px; height: 44px; flex-shrink: 0; border-radius: 8px; background: var(--bg); border: 1px solid #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.drawer .item-c .mini-img { width: 44px; height: 44px; flex-shrink: 0; border-radius: 8px; background: var(--bg); border: 1px solid #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
 .drawer .item-c .mini-img svg { width: 65%; height: 65%; color: var(--primary); }
-.drawer .item-c .mini-img img { width: 100%; height: 100%; object-fit: cover; }
+.drawer .item-c .mini-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .drawer .item-c .info { flex: 1; font-size: .88rem; }
 .drawer footer { padding: 18px; border-top: 1px solid #eee; background: #fff; color: #111; }
 .remover { background: transparent; border: 0; color: #dc2626; cursor: pointer; font-size: 1.1rem; }
