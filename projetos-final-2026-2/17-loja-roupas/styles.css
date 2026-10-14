@@ -9,10 +9,10 @@
   --primary: #18181b;
   --accent: #8a0017;
   --ok: #16a34a;
-  --bg: #241e89;
+  --bg: #f7f7f5;
   --text: #1f2937;
   --muted: #6b7280;
-  --card: #00089a;
+  --card: #ffffff;
   --radius: 14px;
   --shadow: 0 10px 30px rgba(0,0,0,.08);
   --container: 1280px;
@@ -21,11 +21,24 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
+
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: var(--bg);
+  background: linear-gradient(135deg, #f8f8f6, #f1f1ef, #f6f6f4, #ececea);
+  background-size: 300% 300%;
+  animation: bgShift 30s ease-in-out infinite;
   color: var(--text);
   line-height: 1.6;
+}
+
+@keyframes bgShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
 }
 
 img { max-width: 100%; display: block; }
